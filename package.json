@@ -1,0 +1,54 @@
+{
+  "name": "ai-interviewer-platform",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "build:desktop": "NEXT_DESKTOP_EXPORT=true next build",
+    "dist:mac": "npm run build:desktop && electron-builder --mac --publish never"
+  },
+  "dependencies": {
+    "next": "16.2.9",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "electron": "^42.4.1",
+    "electron-builder": "^26.15.3",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.9",
+    "typescript": "^5",
+    "vitest": "^4.1.9"
+  },
+  "main": "electron/main.cjs",
+  "build": {
+    "appId": "com.example.aiinterviewerplatform",
+    "productName": "AI Interviewer Platform",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "out/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    }
+  },
+  "overrides": {
+    "postcss": "^8.5.15"
+  }
+}
