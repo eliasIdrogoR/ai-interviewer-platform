@@ -11,7 +11,7 @@ A lightweight voice-first interview practice app. Candidates select a sample job
 - Optional camera preview for video-call-style UX; interview remains voice-driven.
 - Local session persistence with replay, role filtering, duration, talk ratio, topic coverage, and score trend analytics.
 - Server-side API route that can enhance questions/evaluations with an LLM when `OPENAI_API_KEY` is configured.
-- Deterministic fallback works end-to-end without secrets.
+- The public Vercel deployment is configured with `OPENAI_API_KEY` and returns `mode: "llm"` from `/api/interview`; deterministic fallback still works end-to-end without secrets.
 - GitHub Actions workflow for building a macOS desktop artifact on a macOS runner.
 
 ## Tech stack
@@ -70,7 +70,7 @@ To deploy another instance on Vercel, import the public GitHub mirror or this re
 - Build command: `npm run build`
 - Output: Next.js default
 
-Add `OPENAI_API_KEY` and `OPENAI_MODEL` only if LLM enhancement is desired. The verified deployment currently runs the deterministic fallback path.
+Add `OPENAI_API_KEY` and `OPENAI_MODEL` only if LLM enhancement is desired. The verified public deployment has `OPENAI_API_KEY` configured as a sensitive Vercel Production environment variable.
 
 For a generic Node host:
 

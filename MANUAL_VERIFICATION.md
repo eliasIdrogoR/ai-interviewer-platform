@@ -20,6 +20,7 @@ Use this checklist after `npm run dev` or against a deployed URL.
 4. Dynamic follow-ups.
    - Submit answers until the interview reaches question 3 and question 5.
    - Confirm those questions are marked as follow-ups and reference prior answer content.
+   - On the hosted Vercel deployment, confirm `/api/interview` responses include `mode: "llm"` when the production `OPENAI_API_KEY` environment variable is configured.
 
 5. Completion.
    - Finish six questions.

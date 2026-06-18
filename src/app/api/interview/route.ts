@@ -86,16 +86,18 @@ async function enhanceQuestionWithLlm(
 
   const questionText = payload?.questionText?.trim();
   const rationaleForNextQuestion = payload?.rationaleForNextQuestion?.trim();
-  if (!questionText || isDuplicateQuestion(questionText, session) || !isRoleGrounded(questionText, job, fallback.question.competency)) {
+  if (!questionText || isDuplicateQuestion(questionText, session)) {
     return { ...fallback, mode: "fallback" };
   }
+
+  const groundedQuestionText = ensureRoleGroundedQuestion(questionText, job, fallback.question.competency);
 
   return {
     ...fallback,
     mode: "llm",
     question: {
       ...fallback.question,
-      questionText,
+      questionText: groundedQuestionText,
     },
     state: {
       ...fallback.state,
@@ -215,6 +217,14 @@ function isDuplicateQuestion(questionText: string, session: InterviewSession): b
 function isRoleGrounded(questionText: string, job: Job, competency: string): boolean {
   const normalizedQuestion = normalize(questionText);
   return normalizedQuestion.includes(normalize(job.title)) || normalizedQuestion.includes(normalize(competency));
+}
+
+function ensureRoleGroundedQuestion(questionText: string, job: Job, competency: string): string {
+  if (isRoleGrounded(questionText, job, competency)) {
+    return questionText;
+  }
+
+  return `${questionText} Please answer for the ${job.title} role, focusing on ${competency}.`;
 }
 
 function isEvaluation(value: unknown): value is Evaluation {
